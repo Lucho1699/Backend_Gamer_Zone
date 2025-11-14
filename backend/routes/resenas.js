@@ -52,14 +52,20 @@ router.delete('/:id', async (req, res) => {
 
 //editar una reseña
 router.put('/:id', async (req, res) => {
-  try { 
+  try {
     const resenaActualizada = await Resena.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true }
-    )} catch (error) {
+      { new: true }
+    );
+    if (!resenaActualizada) {
+      return res.status(404).json({ mensaje: 'Reseña no encontrada' });
+    }
+    res.json(resenaActualizada);
+  } catch (error) {
     res.status(400).json({ mensaje: 'Error al actualizar la reseña', error: error.message });
-  }});
+  }
+});
 
 
 module.exports = router;
