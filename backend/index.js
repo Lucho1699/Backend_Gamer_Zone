@@ -75,6 +75,22 @@ app.post('/', async (req, res) => {
   }
 });
 
+//eliminar un juego
+app.delete('/:id', async (req, res) => {
+  console.log("📨 Llegó un DELETE a /data/:id");
+  const gameId = req.params.id;
+  try {
+    const deletedGame = await Game.findByIdAndDelete(gameId);
+    if (!deletedGame) {
+      return res.status(404).json({ error: 'Juego no encontrado' });
+    }
+    console.log("🗑️ Juego eliminado correctamente:", deletedGame);
+    res.status(200).json({ message: 'Juego eliminado correctamente' });
+  } catch (err) {
+    console.error("❌ Error al eliminar juego:", err);
+    res.status(500).json({ error: 'Error eliminando el juego' });
+  }});
+
 
 
 

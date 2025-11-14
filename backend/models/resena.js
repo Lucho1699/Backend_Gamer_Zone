@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const resenaSchema = new mongoose.Schema({
   juegoId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Game', // 👈 referencia a tu modelo Game
+    ref: 'Game', // Referencia al modelo Game
     required: true
   },
   titulo: {
