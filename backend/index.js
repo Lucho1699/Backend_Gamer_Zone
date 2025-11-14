@@ -67,7 +67,7 @@ app.post('/', async (req, res) => {
     // Guardar
     await newGame.save();
     console.log("🎮 Juego agregado correctamente:", newGame);
-    res.status(201).json({ message: 'Juego agregado correctamente' });
+     res.status(201).json(newGame);
 
   } catch (err) {
     console.error("❌ Error al guardar juego:", err);

@@ -1,4 +1,4 @@
-function TarjetaJuego({ gamename, developer, gender, description, imagesrc, onDelete }) {
+function TarjetaJuego({ gamename, developer, gender, description, imagesrc, onDelete, juego_completo, id }) {
     return (
         <>
             <div className="container-tarjeta-juego">
@@ -8,9 +8,13 @@ function TarjetaJuego({ gamename, developer, gender, description, imagesrc, onDe
                 <div className="informacion-tarjeta-juego">
                     <h2 className="titulo-juego">Nombre: {gamename}</h2>
                     <p><strong>Desarrollador:</strong> {developer}</p>
-                    <p><strong>Género: {gender}</strong></p>
-                    <p><strong>Descripcioción: {description}</strong></p>
-                    <button className="boton-eliminar" onClick={()=> onDelete(gamename)}>Eliminar</button>
+                    <p><strong>Género:</strong> {gender}</p>
+                    <p><strong>Descripcioción:</strong> {description}</p>
+                    <p><strong>Completado:</strong> {juego_completo ? "Si" : "No"}</p>
+                    
+                    <button className="boton-eliminar" onClick={()=> onDelete(id)}>Eliminar</button>
+                   
+                    <button className="boton-ver-resenas">Ver Reseñas</button>
                 </div>
             </div>
         </>
