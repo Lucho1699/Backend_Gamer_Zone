@@ -119,6 +119,31 @@ app.put('/:id', authMiddleware, async (req, res) => {
   }
 });
 
+//Juego Completado
+app.patch('/:id', authMiddleware, async (req, res) => {
+  console.log("📨 Llegó un PATCH a /data/:id");
+  const gameId = req.params.id;
+  const { completado } = req.body;
+
+  try {
+    const updatedGame = await Game.findOneAndUpdate(
+      { _id: gameId, userId: req.userId },
+      { completado: completado },
+      { new: true }
+    );
+    
+    if (!updatedGame) {
+      return res.status(404).json({ error: 'Juego no encontrado o no autorizado' });
+    }
+    
+    console.log("✏️ Estado de completado actualizado:", updatedGame);
+    res.status(200).json(updatedGame);
+  } catch (err) {
+    console.error("❌ Error al actualizar completado:", err);
+    res.status(500).json({ error: 'Error actualizando el juego' });
+  }
+});
+
 // 🔹 Agregar reseñas
 const resenasRoutes = require('./routes/resenas');
 app.use('/resenas', resenasRoutes);

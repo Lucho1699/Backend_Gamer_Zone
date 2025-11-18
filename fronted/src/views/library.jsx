@@ -146,6 +146,32 @@ function Library() {
     }
   };
 
+
+// Actualizar estado de completado
+const juego_completo = async (id, nuevoEstado) => {
+  try {
+    const res = await fetch(`${URL_API}/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ completado: nuevoEstado })
+    });
+
+    if (res.ok) {
+      setJuegos(juegos.map(juego => 
+        juego._id === id ? { ...juego, completado: nuevoEstado } : juego
+      ));
+      console.log("✅ Estado de completado actualizado");
+    }
+  } catch (error) {
+    console.error("❌ Error al actualizar completado:", error);
+  }
+};
+
+  
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -215,7 +241,7 @@ function Library() {
               gender={juego.gender}
               description={juego.description}
               imagesrc={juego.imageSrc}
-              juego_completo={juego.juego_completo}
+              onUpdateCompletado={juego_completo}
               onDelete={eliminarJuego}
               onEdit={() => activarEdicion(juego)}
             />
